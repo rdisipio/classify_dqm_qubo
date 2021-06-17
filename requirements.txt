@@ -1,0 +1,6 @@
+dwave-ocean-sdk
+networkx
+matplotlib
+seaborn
+sklearn
+pandas
