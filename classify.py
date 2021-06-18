@@ -4,6 +4,8 @@ import networkx as nx
 import dimod
 import matplotlib.pyplot as plt
 from dwave.system import LeapHybridDQMSampler
+import numpy as np
+from random import random
 
 
 G = nx.karate_club_graph()
@@ -30,7 +32,11 @@ for p0, p1 in nx.non_edges(G):
 for p0, p1 in G.edges:
     dqm.set_quadratic(p0, p1, {(c, c): ((2 * lagrange) - 1) for c in range(num_partitions)})
 
-sampleset = LeapHybridDQMSampler().sample_dqm(dqm)
+sampler = LeapHybridDQMSampler()
+sampleset = sampler.sample_dqm(dqm, label='Example - Graph Partitioning DQM')
+
+sample = sampleset.first.sample
+energy = sampleset.first.energy
 
 color_list = [(random(), random(), random()) for i in range(num_partitions)]
 color_map = [color_list[sample[i]] for i in G.nodes]
